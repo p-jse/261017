@@ -103,7 +103,12 @@ year_range = st.sidebar.slider(
 
 start_year, end_year = year_range
 selected = annual.loc[start_year:end_year].copy()
-selected_raw = raw[raw["연도"].between(start_year, end_year)].copy()\n# 불완전한 1950~1953년은 선택 구간 요약 통계에서도 제외\nselected_raw = selected_raw[~selected_raw["연도"].isin(MISSING_YEARS)]
+
+selected_raw = raw[raw["연도"].between(start_year, end_year)].copy()
+
+# 불완전한 1950~1953년은 선택 구간 요약 통계에서도 제외
+selected_raw = selected_raw[~selected_raw["연도"].isin(MISSING_YEARS)]
+
 
 # 통계는 관측된 날짜만 사용한다. 결측 연도(1950~1953)는 연도 통계에서 제외된다.
 mean_temp = selected_raw[AVG_COL].mean()
